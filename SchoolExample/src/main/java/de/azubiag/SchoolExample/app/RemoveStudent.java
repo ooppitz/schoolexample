@@ -26,7 +26,7 @@ public class RemoveStudent {
 		try {
 			et.begin();
 
-			String queryString = "SELECT s from Student s WHERE s.lname='Klammer'";
+			String queryString = "SELECT s from Student s WHERE s.lname='Klinglmeier'";
 			TypedQuery<Student> query = em.createQuery(queryString, Student.class);
 			List<Student> studentList = query.getResultList();
 			for (Student s : studentList) {
