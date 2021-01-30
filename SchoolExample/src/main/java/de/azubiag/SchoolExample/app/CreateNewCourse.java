@@ -8,10 +8,11 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
+import de.azubiag.SchoolExample.model.Course;
 import de.azubiag.SchoolExample.model.Student;
 import de.azubiag.SchoolExample.util.Util;
 
-public class CreateNewStudent {
+public class CreateNewCourse {
 
 	public static final EntityManagerFactory ENTITY_MANAGER_FACTORY = Persistence
 			.createEntityManagerFactory("schoolDB");
@@ -25,10 +26,9 @@ public class CreateNewStudent {
 
 			et.begin();
 
-			// Student w/o an assigned course
-			Student s = new Student("Ingrid", "Achleitner");
+			Course c = new Course("Deutsch");
 
-			em.persist(s);
+			em.persist(c);
 
 			et.commit();
 
@@ -40,7 +40,7 @@ public class CreateNewStudent {
 			}
 		}
 		
-		 Util.listAllStudents(em);
+		 Util.listAllCourses(em);
 
 	}
 

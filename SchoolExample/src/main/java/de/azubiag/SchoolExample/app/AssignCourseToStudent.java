@@ -21,13 +21,13 @@ public class AssignCourseToStudent {
 			et.begin();
 
 			// Find the course
-			String courseQueryStr = "SELECT c FROM Course c WHERE name = 'Griechisch'";
+			String courseQueryStr = "SELECT c FROM Course c WHERE name = 'Musik'";
 			TypedQuery<Course> courseQuery = em.createQuery(courseQueryStr, Course.class);
 			Course course = courseQuery.getSingleResult();
 			System.out.println("Course: " + course.getName());
 
 			// Find the student
-			String studentQueryStr = "SELECT s FROM Student s WHERE fname = 'Roswita' AND lname = 'Röll'";
+			String studentQueryStr = "SELECT s FROM Student s WHERE fname = 'Ingrid' AND lname = 'Achleitner'";
 			TypedQuery<Student> studentQuery = em.createQuery(studentQueryStr, Student.class);
 			Student student = studentQuery.getSingleResult();
 			System.out.println("Student: " + student.getFname() + " " + student.getLname());

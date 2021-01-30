@@ -28,24 +28,12 @@ public class RemoveCourse {
 		try {
 			et.begin();
 
-			String queryString = "SELECT c from Course c WHERE c.name='Griechisch'";
+			String queryString = "SELECT c from Course c WHERE c.name='Französisch'";
 			TypedQuery<Course> query = em.createQuery(queryString, Course.class);
 			List<Course> courseList = query.getResultList();
 			for (Course course : courseList) {
 
-				// For removing a course we need to remove the relevant
-				System.out.println("Removing all Students from course " + course.getName() + ":");
-
-				// From the students remove the reference to the soon invalid course
-				Set<Student> studentList = course.getStudents();
-				for (Student s : studentList) {
-					System.out.println(s.getFname() + " " + s.getLname());
-					s.remove(course);
-				}
-
-				// From the course remove the formerly attending students
-				course.removeAllStudents();
-
+				course.prepareToRemove();
 				em.remove(course);
 			}
 			et.commit();

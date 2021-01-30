@@ -59,6 +59,26 @@ public class Course {
 		this.students = students;
 	}
 
+	
+	/** Removes references that are kept in the join table. This is required before 
+	 * being able to remove the object
+	 */
+	public void prepareToRemove() {
+		
+		// From the still attending students remove the reference to the soon invalid course
+		
+		System.out.println("Removing all Students from course " + this.getName() + ":");
+
+		Set<Student> studentList = this.getStudents();
+		for (Student s : studentList) {
+			System.out.println("Removing " + s.getFname() + " " + s.getLname());
+			s.remove(this);
+		}
+		
+		// Remove the references to attending students
+		this.students = null; 
+		
+	}
 	public void removeAllStudents() {
 
 		this.students = new HashSet<Student>();
