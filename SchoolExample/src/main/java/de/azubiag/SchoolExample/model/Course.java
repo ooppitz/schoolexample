@@ -70,6 +70,10 @@ public class Course {
 		this.students.add(student);
 	}
 	
+	public void remove(Student student) {
+		this.students.remove(student);
+	}
+	
 	/**
 	 * Removes references that are kept in the join table. This is required before
 	 * being able to remove the object
@@ -120,9 +124,8 @@ public class Course {
 			List<Course> list = query.getResultList();
 			
 			for (Course c : list) {
-				System.out.println(c);
+				System.out.print(c);
 			}
-			System.out.println();
 			
 			et.commit();
 

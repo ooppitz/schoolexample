@@ -25,28 +25,26 @@ public class Student {
 
 	@Column(name = "firstname")
 	private String fname;
-	
+
 	@Column(name = "lastname")
 	private String lname;
 
 	@ManyToMany
-	@JoinTable(name = "jo_student_course", 
-		joinColumns = @JoinColumn(name = "fk_studentid"), 
-		inverseJoinColumns = @JoinColumn(name = "fk_courseid"))
+	@JoinTable(name = "jo_student_course", joinColumns = @JoinColumn(name = "fk_studentid"), inverseJoinColumns = @JoinColumn(name = "fk_courseid"))
 	Set<Course> courses = new HashSet<>();
 
 	/** Default constructor for use by Hibernate */
 	public Student() {
 		super();
 	}
-	
+
 	/** Create a student without an assigned course. */
 	public Student(String fname, String lname) {
 		this();
 		this.fname = fname;
 		this.lname = lname;
 	}
-	
+
 	/**
 	 * Create a student object with an assigned course.
 	 * 
@@ -57,18 +55,30 @@ public class Student {
 		this(fname, lname);
 		this.courses.add(c);
 	}
-	
 
-	/** Add a course to the student's courses
+	/**
+	 * Add a course to the student's courses
 	 * 
 	 * @param course to add
 	 */
 	public void add(Course course) {
 		this.courses.add(course);
+		course.add(this);
 	}
 
+	/**
+	 * Remove the student from all courses he attends.
+	 */
+	public void prepareToRemove() {
 
-	/** Remove course
+		Set<Course> courseList = this.courses;
+		for (Course c : courseList) {
+			c.remove(this);
+		}
+	}
+
+	/**
+	 * Remove a course from the list of attended courses
 	 * 
 	 * @param course to remove
 	 */
@@ -95,16 +105,16 @@ public class Student {
 	@Override
 	public String toString() {
 		String r = this.getFname() + " " + this.getLname() + " (";
-		for(Course c: this.courses) {
+		for (Course c : this.courses) {
 			r += c.getName() + " ";
 		}
 		r += ")";
 		return r;
 	}
-	
+
 	/** Prints all the students including the details */
 	public static void printTable(EntityManager em) {
-		
+
 		EntityTransaction et = em.getTransaction();
 		try {
 
@@ -117,7 +127,7 @@ public class Student {
 				System.out.println(s);
 			}
 			System.out.println();
-			
+
 			et.commit();
 
 		} catch (Exception e) {

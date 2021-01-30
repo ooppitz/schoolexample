@@ -8,6 +8,7 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
+import de.azubiag.SchoolExample.model.Course;
 import de.azubiag.SchoolExample.model.Student;
 import de.azubiag.SchoolExample.util.Util;
 
@@ -21,16 +22,20 @@ public class RemoveStudent {
 		EntityManager em = SchoolDBApp.ENTITY_MANAGER_FACTORY.createEntityManager();
 		EntityTransaction et = em.getTransaction();
 
+		System.out.println("=== Courses ===========================");
+		Course.printTable(em);
+		System.out.println("=== Students ==========================");
 		Student.printTable(em);
-
+		
 		try {
 			et.begin();
 
-			String queryString = "SELECT s from Student s WHERE s.lname='Achleitner'";
+			String queryString = "SELECT s from Student s WHERE s.fname='Hans'";
 			TypedQuery<Student> query = em.createQuery(queryString, Student.class);
 			List<Student> studentList = query.getResultList();
 			for (Student s : studentList) {
-				System.out.println("Removing student " + s.getLname());
+				System.out.println("*** Removing student " + s.getLname());
+				s.prepareToRemove();
 				em.remove(s);
 			}
 			et.commit();
@@ -39,7 +44,11 @@ public class RemoveStudent {
 			e.printStackTrace();
 		}
 
+		System.out.println("=== Courses ===========================");
+		Course.printTable(em);
+		System.out.println("=== Students ==========================");
 		Student.printTable(em);
+
 	}
 
 }
