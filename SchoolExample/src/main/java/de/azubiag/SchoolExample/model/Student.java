@@ -1,6 +1,7 @@
 package de.azubiag.SchoolExample.model;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -13,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.TypedQuery;
 
 @Entity
 public class Student {
@@ -90,5 +92,40 @@ public class Student {
 		this.lname = lname;
 	}
 
+	@Override
+	public String toString() {
+		String r = this.getFname() + " " + this.getLname() + " (";
+		for(Course c: this.courses) {
+			r += c.getName() + " ";
+		}
+		r += ")";
+		return r;
+	}
 	
+	/** Prints all the students including the details */
+	public static void printTable(EntityManager em) {
+		
+		EntityTransaction et = em.getTransaction();
+		try {
+
+			et.begin();
+
+			String queryString = "SELECT s FROM Student s WHERE id IS NOT NULL";
+			TypedQuery<Student> query = em.createQuery(queryString, Student.class);
+			List<Student> list = query.getResultList();
+			for (Student s : list) {
+				System.out.println(s);
+			}
+			System.out.println();
+			
+			et.commit();
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+			if (et != null) {
+				et.rollback();
+			}
+		}
+	}
 }

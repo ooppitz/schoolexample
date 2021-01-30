@@ -40,7 +40,7 @@ public class CreateNewCourse {
 			}
 		}
 		
-		 Util.listAllCourses(em);
+		 Course.printTable(em);
 
 	}
 

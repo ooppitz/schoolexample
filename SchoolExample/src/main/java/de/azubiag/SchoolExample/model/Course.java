@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.TypedQuery;
 
 import de.azubiag.SchoolExample.app.SchoolDBApp;
 
@@ -60,31 +61,6 @@ public class Course {
 	}
 
 	
-	/** Removes references that are kept in the join table. This is required before 
-	 * being able to remove the object
-	 */
-	public void prepareToRemove() {
-		
-		// From the still attending students remove the reference to the soon invalid course
-		
-		System.out.println("Removing all Students from course " + this.getName() + ":");
-
-		Set<Student> studentList = this.getStudents();
-		for (Student s : studentList) {
-			System.out.println("Removing " + s.getFname() + " " + s.getLname());
-			s.remove(this);
-		}
-		
-		// Remove the references to attending students
-		this.students = null; 
-		
-	}
-	public void removeAllStudents() {
-
-		this.students = new HashSet<Student>();
-
-	}
-
 	/**
 	 * Add a student to the course
 	 * 
@@ -92,6 +68,71 @@ public class Course {
 	 */
 	public void add(Student student) {
 		this.students.add(student);
+	}
+	
+	/**
+	 * Removes references that are kept in the join table. This is required before
+	 * being able to remove the object
+	 */
+	public void prepareToRemove() {
+
+		// From the still attending students remove the reference to the soon invalid
+		// course
+
+		System.out.println("Removing all Students from course " + this.getName() + ":");
+
+		Set<Student> studentList = this.getStudents();
+		for (Student s : studentList) {
+			System.out.println("Removing " + s.getFname() + " " + s.getLname());
+			s.remove(this);
+		}
+
+		// Remove the references to attending students
+		this.students = null;
+
+	}
+
+	/** Overrides the standard toString() method */
+	@Override
+	public String toString() {
+		
+		String r = "";
+
+		r += "--- Course '" + this.getName() + "':\n";
+		Set<Student> students = this.getStudents();
+		for (Student s : students) {
+			r += "- Student : " + s + "\n";
+		}
+		r += "\n";
+		return r;
+	}
+
+	/** Prints all the courses including the details */
+	public static void printTable(EntityManager em) {
+		
+		EntityTransaction et = em.getTransaction();
+		try {
+
+			et.begin();
+
+			String queryString = "SELECT c FROM Course c WHERE id IS NOT NULL";
+			TypedQuery<Course> query = em.createQuery(queryString, Course.class);
+			List<Course> list = query.getResultList();
+			
+			for (Course c : list) {
+				System.out.println(c);
+			}
+			System.out.println();
+			
+			et.commit();
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+			if (et != null) {
+				et.rollback();
+			}
+		}
 	}
 
 }

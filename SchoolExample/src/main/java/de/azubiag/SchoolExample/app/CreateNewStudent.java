@@ -26,7 +26,7 @@ public class CreateNewStudent {
 			et.begin();
 
 			// Student w/o an assigned course
-			Student s = new Student("Ingrid", "Achleitner");
+			Student s = new Student("Leonhard", "Klinglmeier");
 
 			em.persist(s);
 
@@ -40,7 +40,7 @@ public class CreateNewStudent {
 			}
 		}
 		
-		 Util.listAllStudents(em);
+		Student.printTable(em);
 
 	}
 

@@ -9,6 +9,7 @@ import javax.persistence.TypedQuery;
 
 import de.azubiag.SchoolExample.model.Course;
 import de.azubiag.SchoolExample.model.Student;
+import de.azubiag.SchoolExample.util.Util;
 
 public class AssignCourseToStudent {
 
@@ -21,18 +22,21 @@ public class AssignCourseToStudent {
 			et.begin();
 
 			// Find the course
-			String courseQueryStr = "SELECT c FROM Course c WHERE name = 'Musik'";
+			String courseQueryStr = "SELECT c FROM Course c WHERE name = 'Biology'";
 			TypedQuery<Course> courseQuery = em.createQuery(courseQueryStr, Course.class);
 			Course course = courseQuery.getSingleResult();
-			System.out.println("Course: " + course.getName());
+			
+			System.out.println(course);
 
 			// Find the student
-			String studentQueryStr = "SELECT s FROM Student s WHERE fname = 'Ingrid' AND lname = 'Achleitner'";
+			String studentQueryStr = "SELECT s FROM Student s WHERE fname = 'Leonhard' AND lname = 'Klinglmeier'";
 			TypedQuery<Student> studentQuery = em.createQuery(studentQueryStr, Student.class);
 			Student student = studentQuery.getSingleResult();
-			System.out.println("Student: " + student.getFname() + " " + student.getLname());
 
 			student.add(course);
+			course.add(student);
+			
+			System.out.println(course);
 
 			et.commit();
 
@@ -43,6 +47,9 @@ public class AssignCourseToStudent {
 				et.rollback();
 			}
 		}
+		
+		System.out.println("=== Courses =======================");
+		Course.printTable(em);
 
 	}
 

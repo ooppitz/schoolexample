@@ -21,12 +21,12 @@ public class RemoveStudent {
 		EntityManager em = SchoolDBApp.ENTITY_MANAGER_FACTORY.createEntityManager();
 		EntityTransaction et = em.getTransaction();
 
-		Util.listAllStudents(em);
+		Student.printTable(em);
 
 		try {
 			et.begin();
 
-			String queryString = "SELECT s from Student s WHERE s.lname='Klinglmeier'";
+			String queryString = "SELECT s from Student s WHERE s.lname='Achleitner'";
 			TypedQuery<Student> query = em.createQuery(queryString, Student.class);
 			List<Student> studentList = query.getResultList();
 			for (Student s : studentList) {
@@ -39,8 +39,7 @@ public class RemoveStudent {
 			e.printStackTrace();
 		}
 
-		Util.listAllStudents(em);
-
+		Student.printTable(em);
 	}
 
 }
