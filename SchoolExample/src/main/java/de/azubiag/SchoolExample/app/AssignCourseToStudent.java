@@ -1,15 +1,11 @@
 package de.azubiag.SchoolExample.app;
 
-import java.util.List;
-import java.util.Set;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 
 import de.azubiag.SchoolExample.model.Course;
 import de.azubiag.SchoolExample.model.Student;
-import de.azubiag.SchoolExample.util.Util;
 
 public class AssignCourseToStudent {
 
@@ -29,10 +25,12 @@ public class AssignCourseToStudent {
 			System.out.println(course);
 
 			// Find the student
-			String studentQueryStr = "SELECT s FROM Student s WHERE fname = 'Leonhard' AND lname = 'Klinglmeier'";
+			String studentQueryStr = "SELECT s FROM Student s WHERE lname = 'Achleitner'";
 			TypedQuery<Student> studentQuery = em.createQuery(studentQueryStr, Student.class);
 			Student student = studentQuery.getSingleResult();
 
+			
+			System.out.println("*** Adding student " + student + " to course " + course.getName()  + "\n");
 			student.add(course);
 			course.add(student);
 			
