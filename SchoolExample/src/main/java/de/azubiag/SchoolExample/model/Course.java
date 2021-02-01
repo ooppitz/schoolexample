@@ -27,6 +27,7 @@ public class Course {
 	@ManyToMany(mappedBy = "courses")
 	protected Set<Student> students = new HashSet<Student>();
 
+	
 	/** Default constructor required by hibernate */
 	public Course() {
 		super();

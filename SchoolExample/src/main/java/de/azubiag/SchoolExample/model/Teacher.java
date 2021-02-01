@@ -35,7 +35,7 @@ public class Teacher {
 	inverseJoinColumns = @JoinColumn(name = "fk_courseid"))
 	
 	Set<Course> courses = new HashSet<Course>();
-
+	
 	/** Default constructor for use by Hibernate */
 	public Teacher() {
 		super();
