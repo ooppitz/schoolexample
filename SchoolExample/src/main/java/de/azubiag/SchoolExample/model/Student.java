@@ -24,10 +24,10 @@ public class Student {
 	private int IDSTUDENT;
 
 	@Column(name = "firstname")
-	private String fname;
+	private String firstname;
 
 	@Column(name = "lastname")
-	private String lname;
+	private String lastname;
 
 	@ManyToMany
 	@JoinTable(name = "jo_student_course", joinColumns = @JoinColumn(name = "fk_studentid"), inverseJoinColumns = @JoinColumn(name = "fk_courseid"))
@@ -41,8 +41,8 @@ public class Student {
 	/** Create a student without an assigned course. */
 	public Student(String fname, String lname) {
 		this();
-		this.fname = fname;
-		this.lname = lname;
+		this.firstname = fname;
+		this.lastname = lname;
 	}
 
 	/**
@@ -87,19 +87,19 @@ public class Student {
 	}
 
 	public String getFname() {
-		return fname;
+		return firstname;
 	}
 
 	public void setFname(String fname) {
-		this.fname = fname;
+		this.firstname = fname;
 	}
 
 	public String getLname() {
-		return lname;
+		return lastname;
 	}
 
 	public void setLname(String lname) {
-		this.lname = lname;
+		this.lastname = lname;
 	}
 
 	@Override
