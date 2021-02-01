@@ -29,7 +29,6 @@ public class AssignCourseToTeacher {
 			
 			System.out.println("*** Adding for teacher " + teacher + " course " + course.getName()  + "\n");
 			teacher.add(course);
-			// course.add(teacher);
 			
 			System.out.println(course);
 
