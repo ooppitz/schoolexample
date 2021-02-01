@@ -14,8 +14,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.TypedQuery;
 
-import de.azubiag.SchoolExample.app.SchoolDBApp;
-
 @Entity
 public class Course {
 
@@ -100,15 +98,15 @@ public class Course {
 	@Override
 	public String toString() {
 		
-		String r = "";
+		String result = "";
 
-		r += "--- Course '" + this.getName() + "':\n";
+		result += "--- Course '" + this.getName() + "':\n";
 		Set<Student> students = this.getStudents();
 		for (Student s : students) {
-			r += "- Student : " + s + "\n";
+			result += "- Student : " + s + "\n";
 		}
-		r += "\n";
-		return r;
+		result += "\n";
+		return result;
 	}
 
 	/** Prints all the courses including the details */
