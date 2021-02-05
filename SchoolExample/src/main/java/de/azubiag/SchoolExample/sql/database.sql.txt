@@ -62,5 +62,7 @@ insert into `course` (idcourse, name) values
 (122, "Englisch"), 
 (123, "Geographie"),
 (124, "Geschichte"),
-(125, "Sport");
+(125, "Sport"),
+(126, "Physik");
+
 
