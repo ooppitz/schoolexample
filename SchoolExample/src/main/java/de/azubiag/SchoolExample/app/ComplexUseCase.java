@@ -6,17 +6,16 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
 import de.azubiag.SchoolExample.model.Course;
+import de.azubiag.SchoolExample.model.Model;
 import de.azubiag.SchoolExample.model.Student;
 import de.azubiag.SchoolExample.model.Teacher;
 
 public class ComplexUseCase {
 
-	public static final EntityManagerFactory ENTITY_MANAGER_FACTORY = Persistence
-			.createEntityManagerFactory("schoolDB");
 
 	public static void main(String[] args) {
 
-		EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
+		EntityManager em = Model.ENTITY_MANAGER_FACTORY.createEntityManager();
 
 		System.out.println();
 		System.out.println("=== Courses ===================");

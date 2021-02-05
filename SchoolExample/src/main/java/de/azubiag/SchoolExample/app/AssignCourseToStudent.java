@@ -25,14 +25,13 @@ public class AssignCourseToStudent {
 			System.out.println(course);
 
 			// Find the student
-			String studentQueryStr = "SELECT s FROM Student s WHERE lname = 'Achleitner'";
+			String studentQueryStr = "SELECT s FROM Student s WHERE lname = 'Radhuber'";
 			TypedQuery<Student> studentQuery = em.createQuery(studentQueryStr, Student.class);
 			Student student = studentQuery.getSingleResult();
 
 			
 			System.out.println("*** Adding student " + student + " to course " + course.getName()  + "\n");
-			student.add(course);
-			course.add(student);
+			student.assign(course);
 			
 			System.out.println(course);
 
