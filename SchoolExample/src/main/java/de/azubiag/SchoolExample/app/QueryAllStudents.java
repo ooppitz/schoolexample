@@ -16,11 +16,9 @@ public class QueryAllStudents {
 			.createEntityManagerFactory("schoolDB");
 
 	public static void main(String[] args) {
-
-		EntityManager em = SchoolDBApp.ENTITY_MANAGER_FACTORY.createEntityManager();
 		
 		System.out.println("=== Students =========================");
-		Student.printTable(em);
+		Student.printTable();
 
 	}
 

@@ -47,7 +47,7 @@ public class AssignCourseToStudent {
 		}
 		
 		System.out.println("=== Courses =======================");
-		Course.printTable(em);
+		Course.printTable();
 
 	}
 

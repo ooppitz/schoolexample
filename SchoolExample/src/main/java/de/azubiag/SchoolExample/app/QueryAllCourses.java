@@ -16,7 +16,7 @@ public class QueryAllCourses {
 
 		System.out.println();
 		System.out.println("=== Courses ==============================\n");
-		Course.printTable(em);
+		Course.printTable();
 
 	}
 

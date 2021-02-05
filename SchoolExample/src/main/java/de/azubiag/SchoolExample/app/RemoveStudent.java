@@ -23,9 +23,9 @@ public class RemoveStudent {
 		EntityTransaction et = em.getTransaction();
 
 		System.out.println("=== Courses ===========================");
-		Course.printTable(em);
+		Course.printTable();
 		System.out.println("=== Students ==========================");
-		Student.printTable(em);
+		Student.printTable();
 		
 		try {
 			et.begin();
@@ -45,9 +45,9 @@ public class RemoveStudent {
 		}
 
 		System.out.println("=== Courses ===========================");
-		Course.printTable(em);
+		Course.printTable();
 		System.out.println("=== Students ==========================");
-		Student.printTable(em);
+		Student.printTable();
 
 	}
 

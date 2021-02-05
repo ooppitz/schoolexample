@@ -17,7 +17,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.TypedQuery;
 
 @Entity
-public class Student {
+public class Student extends Model {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -86,6 +86,58 @@ public class Student {
 		this.courses.remove(course);
 	}
 
+	@Override
+	public String toString() {
+		String r = this.getFname() + " " + this.getLname() + " (";
+		for (Course c : this.courses) {
+			r += c.getName() + " ";
+		}
+		r += ")";
+		return r;
+	}
+
+	/**
+	 * Queries the table Student for all records.
+	 * 
+	 * @return a list of all records of the table student
+	 */
+	public static List<Student> getAll() {
+
+		EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
+		EntityTransaction et = em.getTransaction();
+		try {
+
+			et.begin();
+
+			String queryString = "SELECT s FROM Student s WHERE id IS NOT NULL";
+			TypedQuery<Student> query = em.createQuery(queryString, Student.class);
+			List<Student> list = query.getResultList();
+
+			et.commit();
+
+			return list;
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+			if (et != null) {
+				et.rollback();
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * Prints all the students including the details
+	 */
+	public static void printTable() {
+
+		for (Student s : Student.getAll()) {
+			System.out.println(s);
+		}
+		System.out.println();
+	}
+
 	public String getFname() {
 		return firstname;
 	}
@@ -100,42 +152,5 @@ public class Student {
 
 	public void setLname(String lname) {
 		this.lastname = lname;
-	}
-
-	@Override
-	public String toString() {
-		String r = this.getFname() + " " + this.getLname() + " (";
-		for (Course c : this.courses) {
-			r += c.getName() + " ";
-		}
-		r += ")";
-		return r;
-	}
-
-	/** Prints all the students including the details */
-	public static void printTable(EntityManager em) {
-
-		EntityTransaction et = em.getTransaction();
-		try {
-
-			et.begin();
-
-			String queryString = "SELECT s FROM Student s WHERE id IS NOT NULL";
-			TypedQuery<Student> query = em.createQuery(queryString, Student.class);
-			List<Student> list = query.getResultList();
-			for (Student s : list) {
-				System.out.println(s);
-			}
-			System.out.println();
-
-			et.commit();
-
-		} catch (Exception e) {
-
-			e.printStackTrace();
-			if (et != null) {
-				et.rollback();
-			}
-		}
 	}
 }

@@ -43,7 +43,7 @@ public class AssignCourseToTeacher {
 		}
 		
 		System.out.println("=== Teachers =======================");
-		Teacher.printTable(em);
+		Teacher.printTable();
 
 	}
 

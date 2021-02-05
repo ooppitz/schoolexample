@@ -40,7 +40,7 @@ public class CreateNewCourse {
 			}
 		}
 		
-		 Course.printTable(em);
+		 Course.printTable();
 
 	}
 

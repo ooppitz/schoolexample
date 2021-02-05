@@ -11,11 +11,13 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.TypedQuery;
 
 @Entity
-public class Course {
+public class Course extends Model {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,7 +29,19 @@ public class Course {
 	@ManyToMany(mappedBy = "courses")
 	protected Set<Student> students = new HashSet<Student>();
 
-	
+	@ManyToOne
+	@JoinColumn(name = "idteacher", nullable = false)
+	Teacher teacher;
+
+	public Teacher getTeacher() {
+		return teacher;
+	}
+
+	public void setTeacher(Teacher teacher) {
+		this.teacher = teacher;
+		teacher.add(this);
+	}
+
 	/** Default constructor required by hibernate */
 	public Course() {
 		super();
@@ -43,23 +57,20 @@ public class Course {
 		this.name = name;
 	}
 
-	public String getName() {
-		return name;
+	/** Queries the database for a course with the passed name.
+	 * @implNote in case of multiple matches, the first match is returned
+	 * @return the course if found, otherwise null
+	 */
+	public static Course find(String name) {
+		List<Course> courses = Course.getAll();
+		for (Course c : courses) {
+			if (c.getName().equals(name)) {
+				return c;
+			}
+		}
+		return null;
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public Set<Student> getStudents() {
-		return students;
-	}
-
-	public void setStudents(Set<Student> students) {
-		this.students = students;
-	}
-
-	
 	/**
 	 * Add a student to the course
 	 * 
@@ -68,11 +79,11 @@ public class Course {
 	public void add(Student student) {
 		this.students.add(student);
 	}
-	
+
 	public void remove(Student student) {
 		this.students.remove(student);
 	}
-	
+
 	/**
 	 * Removes references that are kept in the join table. This is required before
 	 * being able to remove the object
@@ -98,7 +109,7 @@ public class Course {
 	/** Overrides the standard toString() method */
 	@Override
 	public String toString() {
-		
+
 		String result = "";
 
 		result += "--- Course '" + this.getName() + "':\n";
@@ -110,9 +121,14 @@ public class Course {
 		return result;
 	}
 
-	/** Prints all the courses including the details */
-	public static void printTable(EntityManager em) {
-		
+	/**
+	 * Queries the table Course for all records
+	 * 
+	 * @return all courses or null in case of error
+	 */
+	public static List<Course> getAll() {
+
+		EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
 		EntityTransaction et = em.getTransaction();
 		try {
 
@@ -121,12 +137,10 @@ public class Course {
 			String queryString = "SELECT c FROM Course c WHERE id IS NOT NULL";
 			TypedQuery<Course> query = em.createQuery(queryString, Course.class);
 			List<Course> list = query.getResultList();
-			
-			for (Course c : list) {
-				System.out.print(c);
-			}
-			
+
 			et.commit();
+
+			return list;
 
 		} catch (Exception e) {
 
@@ -135,6 +149,32 @@ public class Course {
 				et.rollback();
 			}
 		}
+		return null;
+
 	}
 
+	/** Prints all the courses including the details */
+	public static void printTable() {
+
+		for (Course c : Course.getAll()) {
+			System.out.print(c);
+		}
+
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Set<Student> getStudents() {
+		return students;
+	}
+
+	public void setStudents(Set<Student> students) {
+		this.students = students;
+	}
 }

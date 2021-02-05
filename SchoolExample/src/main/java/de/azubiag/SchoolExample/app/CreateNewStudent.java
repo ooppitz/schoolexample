@@ -40,7 +40,7 @@ public class CreateNewStudent {
 			}
 		}
 		
-		Student.printTable(em);
+		Student.printTable();
 
 	}
 

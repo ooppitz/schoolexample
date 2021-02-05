@@ -15,7 +15,7 @@ public class QueryAllTeachers {
 		EntityManager em = SchoolDBApp.ENTITY_MANAGER_FACTORY.createEntityManager();
 		
 		System.out.println("=== Teachers =========================");
-		Teacher.printTable(em);
+		Teacher.printTable();
 
 	}
 

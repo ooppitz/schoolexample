@@ -23,7 +23,7 @@ public class RemoveCourse {
 		EntityManager em = SchoolDBApp.ENTITY_MANAGER_FACTORY.createEntityManager();
 		EntityTransaction et = em.getTransaction();
 
-		Student.printTable(em);
+		Student.printTable();
 
 		try {
 			et.begin();
@@ -42,7 +42,7 @@ public class RemoveCourse {
 			e.printStackTrace();
 		}
 
-		Student.printTable(em);
+		Student.printTable();
 
 	}
 
