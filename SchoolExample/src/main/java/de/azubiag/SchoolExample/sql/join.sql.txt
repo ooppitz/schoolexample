@@ -1,0 +1,8 @@
+/* Various useful join statements */
+
+
+/* Assignment of teachers to courses */
+SELECT * 
+from teacher 
+left join course on course.idteacher = teacher.idteacher
+order by course.idteacher;
