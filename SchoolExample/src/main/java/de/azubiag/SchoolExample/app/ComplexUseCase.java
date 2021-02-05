@@ -1,10 +1,7 @@
 package de.azubiag.SchoolExample.app;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
-
 import de.azubiag.SchoolExample.model.Course;
 import de.azubiag.SchoolExample.model.Model;
 import de.azubiag.SchoolExample.model.Student;
@@ -29,6 +26,13 @@ public class ComplexUseCase {
 		System.out.println("=== Students ===================");
 		Student.printTable();
 
+		
+		// TODO: Extend
+		// - create some course, teachers, students and connect them
+		// - add the objects to the DB
+		// - remove the objects from the DB
+		
+		
 		// Assign Mathematik to Hans Achleitner
 
 		Course c = Course.find("Sport");
