@@ -1,8 +1,29 @@
 /* Various useful join statements */
 
 
-/* Assignment of teachers to courses */
+/*** Assignment of teachers to courses *********************/
+
 SELECT * 
 from teacher 
 left join course on course.idteacher = teacher.idteacher
 order by course.idteacher;
+
+
+
+
+
+/*** Assignment of students to courses ********************/
+
+/* All columns ("raw view") */
+select *
+from course 
+left join jo_student_course on course.idcourse = jo_student_course.fk_courseid
+left join student on jo_student_course.fk_studentid = student.idstudent
+order by course.idcourse;
+
+/* Reduced to useful columns */
+select course.idcourse, course.name, student.firstname, student.lastname
+from course 
+left join jo_student_course on course.idcourse = jo_student_course.fk_courseid
+left join student on jo_student_course.fk_studentid = student.idstudent
+order by course.idcourse;
