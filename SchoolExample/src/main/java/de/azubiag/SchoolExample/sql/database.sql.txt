@@ -5,6 +5,22 @@ CREATE USER IF NOT EXISTS 'dbadmin'@'localhost' IDENTIFIED BY 'turtledove';
 GRANT ALL PRIVILEGES ON `dbetdigital` TO 'dbadmin'@'localhost';
 
 
+CREATE TABLE `student` (
+  `idstudent` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `firstname` varchar(45) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `lastname` varchar(45) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`idstudent`),
+  UNIQUE KEY `idstudent_UNIQUE` (`idstudent`)
+) ENGINE=InnoDB AUTO_INCREMENT=76 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+CREATE TABLE `teacher` (
+  `idteacher` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `firstname` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `lastname` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`idteacher`),
+  UNIQUE KEY `idteacher_UNIQUE` (`idteacher`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
 CREATE TABLE `course` (
   `idcourse` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `idteacher`int(10),
