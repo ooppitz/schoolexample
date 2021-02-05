@@ -6,6 +6,7 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
 import de.azubiag.SchoolExample.model.Course;
+import de.azubiag.SchoolExample.model.Model;
 import de.azubiag.SchoolExample.model.Student;
 
 public class SchoolDBApp {
@@ -26,21 +27,19 @@ public class SchoolDBApp {
 		 * 
 		 */
 		Course course = new Course("Latein");
-		
-		Course course2 = new Course("Französisch");
-		Course course3 = new Course("Griechisch");
+		Course course2 = new Course("Zeichnen");
+		Course course3 = new Course("Chemie");
 
+		Student student1 = new Student("Martin", "Häupl", course);
+		Student student2 = new Student("Markus", "Rosenkranz", course);
+		Student student3 = new Student("Christian", "Krennhuber", course);
 
-		Student student1 = new Student("Christoph", "Wintersteller", course);
-		Student student2 = new Student("Leonhard", "Klinglmeier", course);
-		Student student3 = new Student("Alfons", "Mandorfer", course);
-
-		course.add(student1);
-		course.add(student2);
-		course.add(student3);
+		course.assign(student1);
+		course.assign(student2);
+		course.assign(student3);
 
 		
-		EntityManager em = SchoolDBApp.ENTITY_MANAGER_FACTORY.createEntityManager();
+		EntityManager em = Model.ENTITY_MANAGER_FACTORY.createEntityManager();
 		EntityTransaction et = null;
 		try {
 			et = em.getTransaction();
