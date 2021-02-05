@@ -37,3 +37,30 @@ CREATE TABLE `jo_student_course` (
   CONSTRAINT `courseid` FOREIGN KEY (`fk_courseid`) REFERENCES `course` (`idcourse`),
   CONSTRAINT `studentid` FOREIGN KEY (`fk_studentid`) REFERENCES `student` (`idstudent`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+insert into `teacher` (idteacher, firstname, lastname) values
+(20, "Hans", "Achleitner"),
+(21, "Emmeram", "Anderer"),
+(22, "Benno", "Wintersteller"),
+(23, "Ferdinand", "Kinsky"),
+(24, "Rupert", "Froschauer"),
+(25, "Karl-Heinz", "Meidinger");
+
+
+insert into `student` (idstudent, firstname, lastname) values 
+(20, "Christian", "Radhuber"),
+(21, "Peter", "Mali"),
+(22, "Michael", "Fuchs"),
+(23, "Andreas", "Maier"),
+(24, "Christian", "Radhuber");
+
+
+insert into `course` (idcourse, name) values
+(120, "Mathematik"),
+(121, "Deutsch"),
+(122, "Englisch"), 
+(123, "Geographie"),
+(124, "Geschichte"),
+(125, "Sport");
+
