@@ -30,17 +30,8 @@ public class Course extends Model {
 	protected Set<Student> students = new HashSet<Student>();
 
 	@ManyToOne
-	@JoinColumn(name = "idteacher", nullable = false)
+	@JoinColumn(name = "idteacher")
 	Teacher teacher;
-
-	public Teacher getTeacher() {
-		return teacher;
-	}
-
-	public void setTeacher(Teacher teacher) {
-		this.teacher = teacher;
-		teacher.add(this);
-	}
 
 	/** Default constructor required by hibernate */
 	public Course() {
@@ -57,7 +48,9 @@ public class Course extends Model {
 		this.name = name;
 	}
 
-	/** Queries the database for a course with the passed name.
+	/**
+	 * Queries the database for a course with the passed name.
+	 * 
 	 * @implNote in case of multiple matches, the first match is returned
 	 * @return the course if found, otherwise null
 	 */
@@ -69,6 +62,16 @@ public class Course extends Model {
 			}
 		}
 		return null;
+	}
+
+	/**
+	 * Assigns a teacher to this course
+	 * 
+	 * @param teacher to assign
+	 */
+	public void assign(Teacher teacher) {
+		this.setTeacher(teacher);
+		teacher.getCourses().add(this);
 	}
 
 	/**
@@ -112,12 +115,14 @@ public class Course extends Model {
 
 		String result = "";
 
-		result += "--- Course '" + this.getName() + "':\n";
+		String teacherName = (this.getTeacher() != null) ? this.getTeacher().getName() : "";
+		
+		result += this.getName() + " [ " + teacherName + " ] (";
 		Set<Student> students = this.getStudents();
 		for (Student s : students) {
-			result += "- Student : " + s + "\n";
+			result += s + " ";
 		}
-		result += "\n";
+		result += ")";
 		return result;
 	}
 
@@ -157,9 +162,17 @@ public class Course extends Model {
 	public static void printTable() {
 
 		for (Course c : Course.getAll()) {
-			System.out.print(c);
+			System.out.println(c);
 		}
 
+	}
+
+	public void setTeacher(Teacher teacher) {
+		this.teacher = teacher;
+	}
+
+	public Teacher getTeacher() {
+		return teacher;
 	}
 
 	public String getName() {
