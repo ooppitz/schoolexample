@@ -1,0 +1,23 @@
+create database school;
+
+CREATE USER IF NOT EXISTS 'dbadmin'@'localhost' IDENTIFIED BY 'turtledove';
+
+GRANT ALL PRIVILEGES ON `dbetdigital` TO 'dbadmin'@'localhost';
+
+
+CREATE TABLE `course` (
+  `idcourse` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `idteacher`int(10),
+  `name` varchar(45) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`idcourse`),
+  UNIQUE KEY `idcourse_UNIQUE` (`idcourse`)
+) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+CREATE TABLE `jo_student_course` (
+  `fk_studentid` int(10) unsigned NOT NULL,
+  `fk_courseid` int(10) unsigned NOT NULL,
+  KEY `studentid` (`fk_studentid`),
+  KEY `courseid` (`fk_courseid`),
+  CONSTRAINT `courseid` FOREIGN KEY (`fk_courseid`) REFERENCES `course` (`idcourse`),
+  CONSTRAINT `studentid` FOREIGN KEY (`fk_studentid`) REFERENCES `student` (`idstudent`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
