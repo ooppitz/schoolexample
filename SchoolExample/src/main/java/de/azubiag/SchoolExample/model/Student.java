@@ -33,6 +33,10 @@ public class Student extends Model {
 	@JoinTable(name = "jo_student_course", joinColumns = @JoinColumn(name = "fk_studentid"), inverseJoinColumns = @JoinColumn(name = "fk_courseid"))
 	Set<Course> courses = new HashSet<>();
 
+	public Set<Course> getCourses() {
+		return courses;
+	}
+
 	/** Default constructor for use by Hibernate */
 	public Student() {
 		super();
@@ -61,9 +65,9 @@ public class Student extends Model {
 	 * 
 	 * @param course to add
 	 */
-	public void add(Course course) {
+	public void assign(Course course) {
 		this.courses.add(course);
-		course.add(this);
+		course.getStudents().add(this);
 	}
 
 	/**
@@ -138,6 +142,11 @@ public class Student extends Model {
 		System.out.println();
 	}
 
+	
+	public String getName() {
+		return this.getFname() + " " + this.getLname();
+	}
+	
 	public String getFname() {
 		return firstname;
 	}
