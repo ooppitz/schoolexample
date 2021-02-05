@@ -30,7 +30,9 @@ public class Student extends Model {
 	private String lastname;
 
 	@ManyToMany
-	@JoinTable(name = "jo_student_course", joinColumns = @JoinColumn(name = "fk_studentid"), inverseJoinColumns = @JoinColumn(name = "fk_courseid"))
+	@JoinTable(name = "jo_student_course", 
+	joinColumns = @JoinColumn(name = "fk_studentid"), 
+	inverseJoinColumns = @JoinColumn(name = "fk_courseid"))
 	Set<Course> courses = new HashSet<>();
 
 	public Set<Course> getCourses() {
