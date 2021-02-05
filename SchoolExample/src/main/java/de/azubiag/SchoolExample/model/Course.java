@@ -79,8 +79,9 @@ public class Course extends Model {
 	 * 
 	 * @param student to add
 	 */
-	public void add(Student student) {
+	public void assign(Student student) {
 		this.students.add(student);
+		student.getCourses().add(this);
 	}
 
 	public void remove(Student student) {
@@ -120,9 +121,11 @@ public class Course extends Model {
 		result += this.getName() + " [ " + teacherName + " ] (";
 		Set<Student> students = this.getStudents();
 		for (Student s : students) {
-			result += s + " ";
+			result += s.getName() + ", ";
 		}
+		result = result.substring(0, result.length()-2); // remove last ", "
 		result += ")";
+		
 		return result;
 	}
 
