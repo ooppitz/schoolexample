@@ -26,7 +26,7 @@ public class CreateNewStudent {
 			et.begin();
 
 			// Student w/o an assigned course
-			Student s = new Student("Leonhard", "Klinglmeier");
+			Student s = new Student("Erich", "Semlak");
 
 			em.persist(s);
 

@@ -18,19 +18,19 @@ public class AssignCourseToTeacher {
 			et.begin();
 
 			// Find the student
-			String teacherQueryStr = "SELECT t FROM Teacher t WHERE t.lastname = 'Meidinger'";
+			String teacherQueryStr = "SELECT t FROM Teacher t WHERE t.lastname = 'Mandorfer'";
 			TypedQuery<Teacher> teacherQuery = em.createQuery(teacherQueryStr, Teacher.class);
 			Teacher teacher = teacherQuery.getSingleResult();
 			
 			// Find the course
-			String courseQueryStr = "SELECT c FROM Course c WHERE name = 'Sport'";
+			String courseQueryStr = "SELECT c FROM Course c WHERE name = 'Chormusik'";
 			TypedQuery<Course> courseQuery = em.createQuery(courseQueryStr, Course.class);
 			Course course = courseQuery.getSingleResult();
 			
 			System.out.println("*** Adding for teacher " + teacher + " course " + course.getName()  + "\n");
-			teacher.add(course);
+			teacher.assign(course);
 			
-			System.out.println(course);
+			System.out.println("Course: " + course);
 
 			et.commit();
 
@@ -42,6 +42,7 @@ public class AssignCourseToTeacher {
 			}
 		}
 		
+		System.out.println();
 		System.out.println("=== Teachers =======================");
 		Teacher.printTable();
 

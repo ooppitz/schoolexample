@@ -2,25 +2,29 @@ package de.azubiag.SchoolExample.app;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
-import de.azubiag.SchoolExample.model.Course;
 import de.azubiag.SchoolExample.model.Model;
+import de.azubiag.SchoolExample.model.Student;
+import de.azubiag.SchoolExample.model.Teacher;
 
-public class CreateNewCourse {
+public class CreateNewTeacher {
 
 	public static void main(String[] args) {
 
 		EntityManager em = Model.ENTITY_MANAGER_FACTORY.createEntityManager();
+
 		EntityTransaction et = em.getTransaction();
-		
 		try {
 
 			et.begin();
 
-			Course c = new Course("Chormusik");
+			// Student w/o an assigned course
+			Teacher t = new Teacher("Alfons", "Mandorfer");
 
-			em.persist(c);
+			em.persist(t);
 
 			et.commit();
+			
+			System.out.println("*** Created teacher " + t.getName() + "\n");
 
 		} catch (Exception e) {
 
@@ -29,16 +33,9 @@ public class CreateNewCourse {
 				et.rollback();
 			}
 		}
-		
-		System.out.println("=== Courses ==============================");
-		Course.printTable();
+
+		Teacher.printTable();
 
 	}
-
-	
-
-
-
-	
 
 }
