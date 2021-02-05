@@ -72,7 +72,7 @@ public class Teacher extends Model {
 	 * 
 	 * @param course to add
 	 */
-	public void add(Course course) {
+	public void assign(Course course) {
 		this.courses.add(course);
 		course.setTeacher(this);
 	}
@@ -142,6 +142,11 @@ public class Teacher extends Model {
 		this.courses = courses;
 	}
 
+	
+	public String getName() {
+		return getFirstname() + " " + getLastname();
+	}
+	
 	public String getFirstname() {
 		return firstname;
 	}
