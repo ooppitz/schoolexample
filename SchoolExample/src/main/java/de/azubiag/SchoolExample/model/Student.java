@@ -30,9 +30,7 @@ public class Student extends Model {
 	private String lastname;
 
 	@ManyToMany
-	@JoinTable(name = "jo_student_course", 
-	joinColumns = @JoinColumn(name = "fk_studentid"), 
-	inverseJoinColumns = @JoinColumn(name = "fk_courseid"))
+	@JoinTable(name = "jo_student_course", joinColumns = @JoinColumn(name = "fk_studentid"), inverseJoinColumns = @JoinColumn(name = "fk_courseid"))
 	Set<Course> courses = new HashSet<>();
 
 	public Set<Course> getCourses() {
@@ -92,6 +90,9 @@ public class Student extends Model {
 		this.courses.remove(course);
 	}
 
+	/** 
+	 * Return a string representation of Student, including the assigned courses
+	 */
 	@Override
 	public String toString() {
 		String r = this.getFname() + " " + this.getLname() + " (";
@@ -110,27 +111,19 @@ public class Student extends Model {
 	public static List<Student> getAll() {
 
 		EntityManager em = Model.em;
-		EntityTransaction et = em.getTransaction();
 		try {
-
-			et.begin();
 
 			String queryString = "SELECT s FROM Student s WHERE id IS NOT NULL";
 			TypedQuery<Student> query = em.createQuery(queryString, Student.class);
 			List<Student> list = query.getResultList();
-
-			et.commit();
 
 			return list;
 
 		} catch (Exception e) {
 
 			e.printStackTrace();
-			if (et != null) {
-				et.rollback();
-			}
+			return null;
 		}
-		return null;
 	}
 
 	/**
@@ -144,41 +137,34 @@ public class Student extends Model {
 		System.out.println();
 	}
 
-	
-	/** Finds the object in the DB and returns it
+	/**
+	 * Finds the object in the DB and returns it
 	 * 
 	 * @param id of the object to be loaded
 	 * @return the found object or null in case of error
 	 */
-	
+
 	public static Student find(int id) {
 
 		EntityManager em = Model.em;
-		EntityTransaction et = em.getTransaction();
-		try {
 
-			et.begin();
+		try {
 			String queryString = "SELECT s FROM Student s WHERE id=" + id;
 			TypedQuery<Student> query = em.createQuery(queryString, Student.class);
 			Student student = query.getSingleResult();
-			et.commit();
-
 			return student;
 
 		} catch (Exception e) {
 
 			e.printStackTrace();
-			if (et != null) {
-				et.rollback();
-			}
+			return null;
 		}
-		return null;
 	}
-	
+
 	public String getName() {
 		return this.getFname() + " " + this.getLname();
 	}
-	
+
 	public String getFname() {
 		return firstname;
 	}

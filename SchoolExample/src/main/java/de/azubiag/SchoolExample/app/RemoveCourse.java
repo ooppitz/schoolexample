@@ -23,11 +23,14 @@ public class RemoveCourse {
 		System.out.println("=== Courses =============================================");
 		Course.printTable();
 
+		System.out.println("*** Create course");
 		createCourse(courseName);
+		System.out.println();
 
 		System.out.println("=== Courses after creation ==============================");
 		Course.printTable();
 
+		System.out.println("*** Create course");
 		deleteCourse(courseName);
 
 		System.out.println("=== Courses after deletion ==============================");
@@ -44,8 +47,8 @@ public class RemoveCourse {
 			et.begin();
 			Course c = new Course(courseName);
 			
-			Student id20 = Model.em.merge(Student.find(20));
-			Student id21 = Model.em.merge(Student.find(21));
+			Student id20 = Student.find(20);
+			Student id21 = Student.find(21);
 			
 			c.assign(id20);
 			c.assign(id21);
@@ -79,13 +82,13 @@ public class RemoveCourse {
 			em.remove(course);
 			*/
 			
-			Course detachedCourse = Course.find(courseName);
+			Course course = Course.find(courseName);
 			
 			System.out.println();
 			System.out.println("*** Removing course " + courseName);
-			Course attachedCourse = Model.em.merge(detachedCourse); // Attach instance
-			attachedCourse.prepareToRemove();
-			Model.em.remove(attachedCourse);
+		
+			course.prepareToRemove();
+			Model.em.remove(course);
 			System.out.println();
 
 			et.commit();

@@ -57,10 +57,11 @@ public class Course extends Model {
 	 * @return the course if found, otherwise null
 	 */
 
-	/* TODO: use more effecient implementation
-	 * String queryString = "SELECT c from Course c WHERE c.name='Französisch'";
-	 * TypedQuery<Course> query = em.createQuery(queryString, Course.class);
-	 * List<Course> courseList = query.getResultList();
+	/*
+	 * TODO: use more effecient implementation String queryString =
+	 * "SELECT c from Course c WHERE c.name='Französisch'"; TypedQuery<Course> query
+	 * = em.createQuery(queryString, Course.class); List<Course> courseList =
+	 * query.getResultList();
 	 */
 	public static Course find(String name) {
 		List<Course> courses = Course.getAll();
@@ -92,7 +93,8 @@ public class Course extends Model {
 		student.getCourses().add(this);
 	}
 
-	/** Remove a student from the course
+	/**
+	 * Remove a student from the course
 	 * 
 	 * @param student
 	 */
@@ -149,27 +151,20 @@ public class Course extends Model {
 	public static List<Course> getAll() {
 
 		EntityManager em = Model.em;
-		EntityTransaction et = em.getTransaction();
-		try {
 
-			et.begin();
+		try {
 
 			String queryString = "SELECT c FROM Course c WHERE id IS NOT NULL";
 			TypedQuery<Course> query = em.createQuery(queryString, Course.class);
 			List<Course> list = query.getResultList();
 
-			et.commit();
-
 			return list;
 
 		} catch (Exception e) {
-
 			e.printStackTrace();
-			if (et != null) {
-				et.rollback();
-			}
+			return null;
+
 		}
-		return null;
 
 	}
 

@@ -82,6 +82,7 @@ public class Teacher extends Model {
 	 */
 	@Override
 	public String toString() {
+		
 		String r = "";
 		r += this.firstname + " " + this.lastname + " (";
 		Set<Course> courseList = this.getCourses();
@@ -99,29 +100,19 @@ public class Teacher extends Model {
 	 */
 	public static List<Teacher> getAll() {
 
-		EntityManager em = Model.em;
-
-		EntityTransaction et = em.getTransaction();
 		try {
 
-			et.begin();
-
 			String queryString = "SELECT t FROM Teacher t WHERE t.idteacher IS NOT NULL";
-			TypedQuery<Teacher> query = em.createQuery(queryString, Teacher.class);
+			TypedQuery<Teacher> query = Model.em.createQuery(queryString, Teacher.class);
 			List<Teacher> list = query.getResultList();
-
-			et.commit();
 
 			return list;
 
 		} catch (Exception e) {
 
 			e.printStackTrace();
-			if (et != null) {
-				et.rollback();
-			}
+			return null;
 		}
-		return null;
 	}
 
 	/** Prints all the students including the details */
@@ -142,11 +133,10 @@ public class Teacher extends Model {
 		this.courses = courses;
 	}
 
-	
 	public String getName() {
 		return getFirstname() + " " + getLastname();
 	}
-	
+
 	public String getFirstname() {
 		return firstname;
 	}
