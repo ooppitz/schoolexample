@@ -10,7 +10,7 @@ public class CreateNewTeacher {
 
 	public static void main(String[] args) {
 
-		EntityManager em = Model.ENTITY_MANAGER_FACTORY.createEntityManager();
+		EntityManager em = Model.em;
 
 		EntityTransaction et = em.getTransaction();
 		try {

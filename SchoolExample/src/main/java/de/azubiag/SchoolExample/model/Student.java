@@ -109,7 +109,7 @@ public class Student extends Model {
 	 */
 	public static List<Student> getAll() {
 
-		EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
+		EntityManager em = Model.em;
 		EntityTransaction et = em.getTransaction();
 		try {
 
@@ -153,7 +153,7 @@ public class Student extends Model {
 	
 	public static Student find(int id) {
 
-		EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
+		EntityManager em = Model.em;
 		EntityTransaction et = em.getTransaction();
 		try {
 

@@ -39,7 +39,7 @@ public class SchoolDBApp {
 		course.assign(student3);
 
 		
-		EntityManager em = Model.ENTITY_MANAGER_FACTORY.createEntityManager();
+		EntityManager em = Model.em;
 		EntityTransaction et = null;
 		try {
 			et = em.getTransaction();

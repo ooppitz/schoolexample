@@ -148,7 +148,7 @@ public class Course extends Model {
 	 */
 	public static List<Course> getAll() {
 
-		EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
+		EntityManager em = Model.em;
 		EntityTransaction et = em.getTransaction();
 		try {
 

@@ -11,8 +11,6 @@ public class QueryAllTables {
 
 	public static void main(String[] args) {
 		
-		EntityManager em = Model.ENTITY_MANAGER_FACTORY.createEntityManager();
-
 		System.out.println();
 		System.out.println("=== Courses ===================");
 		Course.printTable();

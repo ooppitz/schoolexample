@@ -12,7 +12,7 @@ public class ComplexUseCase {
 
 	public static void main(String[] args) {
 
-		EntityManager em = Model.ENTITY_MANAGER_FACTORY.createEntityManager();
+		EntityManager em = Model.em;
 
 		System.out.println();
 		System.out.println("=== Courses ===================");

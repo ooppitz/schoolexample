@@ -99,7 +99,7 @@ public class Teacher extends Model {
 	 */
 	public static List<Teacher> getAll() {
 
-		EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
+		EntityManager em = Model.em;
 
 		EntityTransaction et = em.getTransaction();
 		try {
