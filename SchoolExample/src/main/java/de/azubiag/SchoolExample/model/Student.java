@@ -55,7 +55,7 @@ public class Student extends Model {
 	 */
 	public Student(String fname, String lname, Course c) {
 		this(fname, lname);
-		this.courses.add(c);
+		this.assign(c);
 	}
 
 	/**
