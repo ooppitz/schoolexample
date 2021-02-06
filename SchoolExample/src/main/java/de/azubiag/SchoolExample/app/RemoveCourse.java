@@ -38,21 +38,19 @@ public class RemoveCourse {
 	/** Creates a course and asssigns to existing students to it */
 	private static void createCourse(String courseName) {
 		
-		EntityManager em = Model.ENTITY_MANAGER_FACTORY.createEntityManager();
-		EntityTransaction et = em.getTransaction();
-
+		EntityTransaction et = Model.em.getTransaction();
 		try {
 
 			et.begin();
 			Course c = new Course(courseName);
 			
-			Student id20 = em.merge(Student.find(20));
-			Student id21 = em.merge(Student.find(21));
+			Student id20 = Model.em.merge(Student.find(20));
+			Student id21 = Model.em.merge(Student.find(21));
 			
 			c.assign(id20);
 			c.assign(id21);
 			
-			em.persist(c);
+			Model.em.persist(c);
 			et.commit();
 
 		} catch (Exception e) {
@@ -67,8 +65,7 @@ public class RemoveCourse {
 	
 	private static void deleteCourse(String courseName) {	
 		
-		EntityManager em = Model.ENTITY_MANAGER_FACTORY.createEntityManager();
-		EntityTransaction et = em.getTransaction();
+		EntityTransaction et = Model.em.getTransaction();
 		
 		try {
 			et.begin();
@@ -84,9 +81,12 @@ public class RemoveCourse {
 			
 			Course detachedCourse = Course.find(courseName);
 			
-			Course attachedCourse = em.merge(detachedCourse); // Attach instance
+			System.out.println();
+			System.out.println("*** Removing course " + courseName);
+			Course attachedCourse = Model.em.merge(detachedCourse); // Attach instance
 			attachedCourse.prepareToRemove();
-			em.remove(attachedCourse);
+			Model.em.remove(attachedCourse);
+			System.out.println();
 
 			et.commit();
 
