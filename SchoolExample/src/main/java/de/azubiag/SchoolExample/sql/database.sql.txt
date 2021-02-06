@@ -45,8 +45,9 @@ insert into `teacher` (idteacher, firstname, lastname) values
 (22, "Benno", "Wintersteller"),
 (23, "Ferdinand", "Kinsky"),
 (24, "Rupert", "Froschauer"),
-(25, "Karl-Heinz", "Meidinger");
-
+(25, "Karl-Heinz", "Meidinger"),
+(26, "Ingrid", "Achleitner"),
+(28, "Alfons", "Mandorfer");
 
 insert into `student` (idstudent, firstname, lastname) values 
 (20, "Christian", "Radhuber"),
@@ -62,12 +63,18 @@ insert into `student` (idstudent, firstname, lastname) values
 
 
 insert into `course` (idcourse, name) values
-(120, "Mathematik"),
-(121, "Deutsch"),
-(122, "Englisch"), 
-(123, "Geographie"),
-(124, "Geschichte"),
-(125, "Sport"),
-(126, "Physik");
+(120,20,"Mathematik"),
+(121,21,"Deutsch"),
+(122,22,"Englisch"),
+(123,23,"Geographie"),
+(124,24,"Geschichte"),
+(125,25,"Sport"),
+(126,20,"Physik"),
+(127,21,"Französisch"),
+(128,NULL,"Musik"),
+(129,28,"Chormusik"),
+(130,NULL,"Latein"),
+(131,NULL,"Zeichnen"),
+(132,NULL,"Chemie");
 
 
