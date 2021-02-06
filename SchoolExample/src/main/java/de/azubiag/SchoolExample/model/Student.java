@@ -81,17 +81,7 @@ public class Student extends Model {
 		// Remove the object from the DB
 		em.remove(this);
 	}
-	
-	/**
-	 * Remove the student from all courses he attends.
-	 */
-	public void prepareToRemove() {
 
-		Set<Course> courseList = this.courses;
-		for (Course c : courseList) {
-			c.remove(this);
-		}
-	}
 
 	/**
 	 * Remove a course from the list of attended courses

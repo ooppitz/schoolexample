@@ -9,45 +9,43 @@ import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
 import de.azubiag.SchoolExample.model.Course;
+import de.azubiag.SchoolExample.model.Model;
 import de.azubiag.SchoolExample.model.Student;
 import de.azubiag.SchoolExample.util.Util;
 
 public class RemoveStudent {
 
-	public static final EntityManagerFactory ENTITY_MANAGER_FACTORY = Persistence
-			.createEntityManagerFactory("schoolDB");
-
 	public static void main(String[] args) {
 
-		EntityManager em = SchoolDBApp.ENTITY_MANAGER_FACTORY.createEntityManager();
-		EntityTransaction et = em.getTransaction();
+		EntityTransaction et = Model.em.getTransaction();
+		et.begin();
 
-		System.out.println("=== Courses ===========================");
-		Course.printTable();
-		System.out.println("=== Students ==========================");
-		Student.printTable();
-		
 		try {
-			et.begin();
 
-			String queryString = "SELECT s from Student s WHERE s.fname='Hans'";
-			TypedQuery<Student> query = em.createQuery(queryString, Student.class);
+			System.out.println("=== Courses ===========================");
+			Course.printTable();
+			System.out.println("=== Students ==========================");
+			Student.printTable();
+
+			String queryString = "SELECT s from Student s WHERE s.firstname='Christian'";
+			TypedQuery<Student> query = Model.em.createQuery(queryString, Student.class);
 			List<Student> studentList = query.getResultList();
 			for (Student s : studentList) {
 				System.out.println("*** Removing student " + s.getLastname());
-				s.prepareToRemove();
-				em.remove(s);
+				s.remove();
 			}
-			et.commit();
+			System.out.println();
+
+			System.out.println("=== Courses ===========================");
+			Course.printTable();
+			System.out.println("=== Students ==========================");
+			Student.printTable();
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
-		System.out.println("=== Courses ===========================");
-		Course.printTable();
-		System.out.println("=== Students ==========================");
-		Student.printTable();
+		et.rollback();
 
 	}
 
