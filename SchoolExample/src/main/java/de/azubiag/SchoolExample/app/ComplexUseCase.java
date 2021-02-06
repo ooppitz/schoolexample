@@ -11,11 +11,7 @@ public class ComplexUseCase {
 
 	public static void main(String[] args) {
 
-		// TODO: Extend
-		// - create some course, teachers, students and connect them
-		// - add the objects to the DB
-		// - remove the objects from the DB
-
+		
 		EntityTransaction et = Model.em.getTransaction();
 		et.begin();
 
@@ -64,39 +60,7 @@ public class ComplexUseCase {
 
 	}
 
-	private static void deleteCourse(String courseName) {
-
-		Course c = Course.find(courseName);
-		if (c != null) {
-			System.out.println();
-			System.out.println("*** Deleting course " + courseName);
-			System.out.println();
-			c.remove();
-		}
-	}
-
-	private static void deleteTeacher(String teacherFirstname, String teacherLastname) {
-
-		Teacher t = Teacher.find(teacherFirstname, teacherLastname);
-		if (t != null) {
-			System.out.println();
-			System.out.println("*** Deleting teacher " + t.getName());
-			System.out.println();
-			t.remove();
-		}
-	}
 	
-	private static void deleteStudent(int id) {
-
-		Student s = Student.find(id);
-		if (s != null) {
-			System.out.println();
-			System.out.println("*** Deleting student " + s.getName());
-			System.out.println();
-			s.remove();
-		}
-	}
-
 	/**
 	 * Creates a course, a teacher and links both
 	 * 
@@ -134,5 +98,39 @@ public class ComplexUseCase {
 		System.out.println(c);
 		System.out.println(t);
 	}
+	
+	private static void deleteCourse(String courseName) {
+
+		Course c = Course.find(courseName);
+		if (c != null) {
+			System.out.println();
+			System.out.println("*** Deleting course " + courseName);
+			System.out.println();
+			c.remove();
+		}
+	}
+
+	private static void deleteTeacher(String teacherFirstname, String teacherLastname) {
+
+		Teacher t = Teacher.find(teacherFirstname, teacherLastname);
+		if (t != null) {
+			System.out.println();
+			System.out.println("*** Deleting teacher " + t.getName());
+			System.out.println();
+			t.remove();
+		}
+	}
+	
+	private static void deleteStudent(int id) {
+
+		Student s = Student.find(id);
+		if (s != null) {
+			System.out.println();
+			System.out.println("*** Deleting student " + s.getName());
+			System.out.println();
+			s.remove();
+		}
+	}
+
 
 }
