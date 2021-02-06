@@ -1,9 +1,7 @@
 package de.azubiag.SchoolExample.app;
 
-import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import de.azubiag.SchoolExample.model.Model;
-import de.azubiag.SchoolExample.model.Student;
 import de.azubiag.SchoolExample.model.Teacher;
 
 public class CreateNewTeacher {
