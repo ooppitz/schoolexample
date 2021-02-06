@@ -34,7 +34,7 @@ public class RemoveStudent {
 			TypedQuery<Student> query = em.createQuery(queryString, Student.class);
 			List<Student> studentList = query.getResultList();
 			for (Student s : studentList) {
-				System.out.println("*** Removing student " + s.getLname());
+				System.out.println("*** Removing student " + s.getLastname());
 				s.prepareToRemove();
 				em.remove(s);
 			}

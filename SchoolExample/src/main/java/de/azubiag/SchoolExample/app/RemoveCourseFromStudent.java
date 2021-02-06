@@ -30,7 +30,7 @@ public class RemoveCourseFromStudent {
 			String studentQueryStr = "SELECT s FROM Student s WHERE fname = 'Verena' AND lname = 'Mittermeier'";
 			TypedQuery<Student> studentQuery = em.createQuery(studentQueryStr, Student.class);
 			Student student = studentQuery.getSingleResult();
-			System.out.println("Student: " + student.getFname() + " " + student.getLname());
+			System.out.println("Student: " + student.getFirstname() + " " + student.getLastname());
 
 			student.remove(course);
 
