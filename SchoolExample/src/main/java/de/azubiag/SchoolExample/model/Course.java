@@ -33,7 +33,7 @@ public class Course extends Model {
 	@JoinColumn(name = "idteacher")
 	Teacher teacher;
 
-	/** Default constructor required by hibernate */
+	/** Default constructor required by hibernate  */
 	public Course() {
 		super();
 	}
