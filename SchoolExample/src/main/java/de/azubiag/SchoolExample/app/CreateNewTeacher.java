@@ -10,30 +10,27 @@ public class CreateNewTeacher {
 
 	public static void main(String[] args) {
 
-		EntityManager em = Model.em;
+		EntityTransaction et = Model.em.getTransaction();
+		et.begin();
 
-		EntityTransaction et = em.getTransaction();
 		try {
 
-			et.begin();
+			// Create teacher w/o an assigned course
+			Teacher t = new Teacher("Benedikt", "Pitschmann");
+			Model.em.persist(t);
 
-			// Student w/o an assigned course
-			Teacher t = new Teacher("Alfons", "Mandorfer");
-
-			em.persist(t);
-
-			et.commit();
-			
-			System.out.println("*** Created teacher " + t.getName() + "\n");
+			System.out.println("*** Table with new teacher");
+			Teacher.printTable();
 
 		} catch (Exception e) {
 
 			e.printStackTrace();
-			if (et != null) {
-				et.rollback();
-			}
+
 		}
 
+		et.rollback();
+
+		System.out.println("*** Table after rollback");
 		Teacher.printTable();
 
 	}
