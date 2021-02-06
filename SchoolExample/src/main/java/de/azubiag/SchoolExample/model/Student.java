@@ -158,11 +158,9 @@ public class Student extends Model {
 
 	public static Student find(int id) {
 
-		EntityManager em = Model.em;
-
 		try {
 			String queryString = "SELECT s FROM Student s WHERE id=" + id;
-			TypedQuery<Student> query = em.createQuery(queryString, Student.class);
+			TypedQuery<Student> query = Model.em.createQuery(queryString, Student.class);
 			Student student = query.getSingleResult();
 			return student;
 

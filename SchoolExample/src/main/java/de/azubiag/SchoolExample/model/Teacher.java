@@ -50,6 +50,26 @@ public class Teacher extends Model {
 		this.lastname = lname;
 	}
 
+	/** Find a teacher identified by its primar key
+	 * 
+	 * @param id teacher object or null in case of error
+	 * @return
+	 */
+	public static Teacher find(int id) {
+
+		try {
+			String queryString = "SELECT t FROM Teacher t WHERE id=" + id;
+			TypedQuery<Teacher> query = Model.em.createQuery(queryString, Teacher.class);
+			Teacher teacher = query.getSingleResult();
+			return teacher;
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+			return null;
+		}
+	}
+
 	/**
 	 * Queries the database for a teacher with the passed name.
 	 * 
@@ -78,8 +98,8 @@ public class Teacher extends Model {
 	}
 
 	/**
-	 * Remove the teacher object from the DB. Before doing so, 
-	 * remove all references to the teacher object.
+	 * Remove the teacher object from the DB. Before doing so, remove all references
+	 * to the teacher object.
 	 * 
 	 */
 	public void remove() {
