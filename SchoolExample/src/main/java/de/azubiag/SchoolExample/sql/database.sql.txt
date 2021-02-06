@@ -1,3 +1,5 @@
+drop database school;
+
 create database school;
 
 CREATE USER IF NOT EXISTS 'dbadmin'@'localhost' IDENTIFIED BY 'turtledove';
@@ -77,4 +79,15 @@ insert into `course` (idcourse, name) values
 (131,NULL,"Zeichnen"),
 (132,NULL,"Chemie");
 
+/* Assign students to courses */
 
+insert into `jo_student_course` (`fk_courseid`,`fk_studentid`) values
+(120, 20),
+(120, 21),
+(120, 22),
+(120, 23),
+(122, 20),
+(122, 21),
+(122, 23),
+(129, 27);
+  
