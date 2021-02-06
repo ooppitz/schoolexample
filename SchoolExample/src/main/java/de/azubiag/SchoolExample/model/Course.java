@@ -83,6 +83,7 @@ public class Course extends Model {
 		teacher.getCourses().add(this);
 	}
 
+	
 	/**
 	 * Assign a student to the course
 	 * 
