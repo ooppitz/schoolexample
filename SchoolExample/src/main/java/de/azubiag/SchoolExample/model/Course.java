@@ -150,12 +150,10 @@ public class Course extends Model {
 	 */
 	public static List<Course> getAll() {
 
-		EntityManager em = Model.em;
-
 		try {
 
 			String queryString = "SELECT c FROM Course c WHERE id IS NOT NULL";
-			TypedQuery<Course> query = em.createQuery(queryString, Course.class);
+			TypedQuery<Course> query = Model.em.createQuery(queryString, Course.class);
 			List<Course> list = query.getResultList();
 
 			return list;
