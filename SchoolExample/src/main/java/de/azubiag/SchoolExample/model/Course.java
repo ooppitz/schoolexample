@@ -83,7 +83,6 @@ public class Course extends Model {
 		teacher.getCourses().add(this);
 	}
 
-	
 	/**
 	 * Assign a student to the course
 	 * 
@@ -105,18 +104,20 @@ public class Course extends Model {
 
 	/** Removes the object from the DB and removes all dependencies */
 	public void remove() {
-		
+
 		// Remove any reference from teacher
-		this.getTeacher().getCourses().remove(this);
-		
+		if (this.getTeacher() != null) {
+			this.getTeacher().getCourses().remove(this);
+		}
+
 		// Remove any reference from student(s)
-		for(Student s : this.getStudents()) {
+		for (Student s : this.getStudents()) {
 			s.getCourses().remove(this);
 		}
 		// Remove the object from the DB
 		em.remove(this);
 	}
-	
+
 	/**
 	 * Removes references that are kept in the join table. This is required before
 	 * being able to remove the object
@@ -130,7 +131,7 @@ public class Course extends Model {
 
 		Set<Student> studentList = this.getStudents();
 		for (Student s : studentList) {
-			System.out.println("Removing " + s.getFname() + " " + s.getLname());
+			System.out.println("Removing " + s.getFirstname() + " " + s.getLastname());
 			s.remove(this);
 		}
 
@@ -167,7 +168,7 @@ public class Course extends Model {
 
 		try {
 
-			String queryString = "SELECT c FROM Course c WHERE id IS NOT NULL";
+			String queryString = "SELECT c FROM Course c WHERE id IS NOT NULL ORDER BY c.name";
 			TypedQuery<Course> query = Model.em.createQuery(queryString, Course.class);
 			List<Course> list = query.getResultList();
 

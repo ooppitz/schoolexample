@@ -9,28 +9,34 @@ public class CreateNewCourse {
 
 	public static void main(String[] args) {
 
-		EntityManager em = Model.em;
-		EntityTransaction et = em.getTransaction();
+		System.out.println("=== Courses before transaction ==============================");
+		Course.printTable();
+		
+		EntityTransaction et = Model.em.getTransaction();
 		
 		try {
 
+			String courseName = "Griechisch";
 			et.begin();
 
-			Course c = new Course("Chormusik");
+			System.out.println("*** Create course " +  courseName);
+			
+			Course c = new Course(courseName);
+			Model.em.persist(c);
 
-			em.persist(c);
-
-			et.commit();
+			System.out.println("*** Remove course " +  courseName);
+			c.remove();
+			
 
 		} catch (Exception e) {
 
 			e.printStackTrace();
-			if (et != null) {
-				et.rollback();
-			}
+			
 		}
 		
-		System.out.println("=== Courses ==============================");
+		et.rollback();
+		
+		System.out.println("=== Courses after transaction ==============================");
 		Course.printTable();
 
 	}

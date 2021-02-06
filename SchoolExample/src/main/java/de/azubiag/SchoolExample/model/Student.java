@@ -33,9 +33,7 @@ public class Student extends Model {
 	@JoinTable(name = "jo_student_course", joinColumns = @JoinColumn(name = "fk_studentid"), inverseJoinColumns = @JoinColumn(name = "fk_courseid"))
 	Set<Course> courses = new HashSet<>();
 
-	public Set<Course> getCourses() {
-		return courses;
-	}
+	
 
 	/** Default constructor for use by Hibernate */
 	public Student() {
@@ -109,7 +107,7 @@ public class Student extends Model {
 	 */
 	@Override
 	public String toString() {
-		String r = this.getFname() + " " + this.getLname() + " (";
+		String r = this.getFirstname() + " " + this.getLastname() + " (";
 		for (Course c : this.courses) {
 			r += c.getName() + " ";
 		}
@@ -127,7 +125,7 @@ public class Student extends Model {
 		EntityManager em = Model.em;
 		try {
 
-			String queryString = "SELECT s FROM Student s WHERE id IS NOT NULL";
+			String queryString = "SELECT s FROM Student s WHERE id IS NOT NULL ORDER BY s.lastname";
 			TypedQuery<Student> query = em.createQuery(queryString, Student.class);
 			List<Student> list = query.getResultList();
 
@@ -175,19 +173,23 @@ public class Student extends Model {
 		}
 	}
 
+	public Set<Course> getCourses() {
+		return courses;
+	}
+	
 	public String getName() {
-		return this.getFname() + " " + this.getLname();
+		return this.getFirstname() + " " + this.getLastname();
 	}
 
-	public String getFname() {
+	public String getFirstname() {
 		return firstname;
 	}
 
-	public void setFname(String fname) {
+	public void setFirstname(String fname) {
 		this.firstname = fname;
 	}
 
-	public String getLname() {
+	public String getLastname() {
 		return lastname;
 	}
 

@@ -115,7 +115,7 @@ public class Teacher extends Model {
 
 		try {
 
-			String queryString = "SELECT t FROM Teacher t WHERE t.idteacher IS NOT NULL";
+			String queryString = "SELECT t FROM Teacher t WHERE t.idteacher IS NOT NULL ORDER by t.lastname";
 			TypedQuery<Teacher> query = Model.em.createQuery(queryString, Teacher.class);
 			List<Teacher> list = query.getResultList();
 
