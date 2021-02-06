@@ -33,7 +33,7 @@ public class Course extends Model {
 	@JoinColumn(name = "idteacher")
 	Teacher teacher;
 
-	/** Default constructor required by hibernate  */
+	/** Default constructor required by hibernate */
 	public Course() {
 		super();
 	}
@@ -52,7 +52,15 @@ public class Course extends Model {
 	 * Queries the database for a course with the passed name.
 	 * 
 	 * @implNote in case of multiple matches, the first match is returned
+	 * @implNote inefficient implementation as it reads complete table and iterates
+	 *           over it to find a matching element
 	 * @return the course if found, otherwise null
+	 */
+
+	/* TODO: use more effecient implementation
+	 * String queryString = "SELECT c from Course c WHERE c.name='Französisch'";
+	 * TypedQuery<Course> query = em.createQuery(queryString, Course.class);
+	 * List<Course> courseList = query.getResultList();
 	 */
 	public static Course find(String name) {
 		List<Course> courses = Course.getAll();
@@ -75,7 +83,7 @@ public class Course extends Model {
 	}
 
 	/**
-	 * Add a student to the course
+	 * Assign a student to the course
 	 * 
 	 * @param student to add
 	 */
@@ -84,6 +92,10 @@ public class Course extends Model {
 		student.getCourses().add(this);
 	}
 
+	/** Remove a student from the course
+	 * 
+	 * @param student
+	 */
 	public void remove(Student student) {
 		this.students.remove(student);
 	}
@@ -117,15 +129,15 @@ public class Course extends Model {
 		String result = "";
 
 		String teacherName = (this.getTeacher() != null) ? this.getTeacher().getName() : "";
-		
+
 		result += this.getName() + " [ " + teacherName + " ] (";
 		Set<Student> students = this.getStudents();
 		for (Student s : students) {
 			result += s.getName() + ", ";
 		}
-		result = result.substring(0, result.length()-2); // remove last ", "
+		result = result.substring(0, result.length() - 2); // remove last ", "
 		result += ")";
-		
+
 		return result;
 	}
 

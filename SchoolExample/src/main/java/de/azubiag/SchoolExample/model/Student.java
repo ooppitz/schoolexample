@@ -145,6 +145,36 @@ public class Student extends Model {
 	}
 
 	
+	/** Finds the object in the DB and returns it
+	 * 
+	 * @param id of the object to be loaded
+	 * @return the found object or null in case of error
+	 */
+	
+	public static Student find(int id) {
+
+		EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
+		EntityTransaction et = em.getTransaction();
+		try {
+
+			et.begin();
+			String queryString = "SELECT s FROM Student s WHERE id=" + id;
+			TypedQuery<Student> query = em.createQuery(queryString, Student.class);
+			Student student = query.getSingleResult();
+			et.commit();
+
+			return student;
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+			if (et != null) {
+				et.rollback();
+			}
+		}
+		return null;
+	}
+	
 	public String getName() {
 		return this.getFname() + " " + this.getLname();
 	}

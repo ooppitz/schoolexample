@@ -10,40 +10,91 @@ import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
 import de.azubiag.SchoolExample.model.Course;
+import de.azubiag.SchoolExample.model.Model;
 import de.azubiag.SchoolExample.model.Student;
 import de.azubiag.SchoolExample.util.Util;
 
 public class RemoveCourse {
 
-	public static final EntityManagerFactory ENTITY_MANAGER_FACTORY = Persistence
-			.createEntityManagerFactory("schoolDB");
-
 	public static void main(String[] args) {
 
-		EntityManager em = SchoolDBApp.ENTITY_MANAGER_FACTORY.createEntityManager();
+		String courseName = "Stenographie";
+
+		System.out.println("=== Courses =============================================");
+		Course.printTable();
+
+		createCourse(courseName);
+
+		System.out.println("=== Courses after creation ==============================");
+		Course.printTable();
+
+		deleteCourse(courseName);
+
+		System.out.println("=== Courses after deletion ==============================");
+		Course.printTable();
+
+	}
+
+	/** Creates a course and asssigns to existing students to it */
+	private static void createCourse(String courseName) {
+		
+		EntityManager em = Model.ENTITY_MANAGER_FACTORY.createEntityManager();
 		EntityTransaction et = em.getTransaction();
 
-		Student.printTable();
+		try {
 
+			et.begin();
+			Course c = new Course(courseName);
+			
+			Student id20 = em.merge(Student.find(20));
+			Student id21 = em.merge(Student.find(21));
+			
+			c.assign(id20);
+			c.assign(id21);
+			
+			em.persist(c);
+			et.commit();
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+			if (et != null) {
+				et.rollback();
+			}
+		}
+	}
+	
+	
+	private static void deleteCourse(String courseName) {	
+		
+		EntityManager em = Model.ENTITY_MANAGER_FACTORY.createEntityManager();
+		EntityTransaction et = em.getTransaction();
+		
 		try {
 			et.begin();
 
-			String queryString = "SELECT c from Course c WHERE c.name='Französisch'";
+			/*
+			String queryString = "SELECT c from Course c WHERE c.name='" + courseName + "'";
 			TypedQuery<Course> query = em.createQuery(queryString, Course.class);
 			List<Course> courseList = query.getResultList();
-			for (Course course : courseList) {
+			Course course = courseList.get(0);
+			course.prepareToRemove();
+			em.remove(course);
+			*/
+			
+			Course detachedCourse = Course.find(courseName);
+			
+			Course attachedCourse = em.merge(detachedCourse); // Attach instance
+			attachedCourse.prepareToRemove();
+			em.remove(attachedCourse);
 
-				course.prepareToRemove();
-				em.remove(course);
-			}
 			et.commit();
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
-		Student.printTable();
-
 	}
+
+	
 
 }
