@@ -103,6 +103,20 @@ public class Course extends Model {
 		this.students.remove(student);
 	}
 
+	/** Removes the object from the DB and removes all dependencies */
+	public void remove() {
+		
+		// Remove any reference from teacher
+		this.getTeacher().getCourses().remove(this);
+		
+		// Remove any reference from student(s)
+		for(Student s : this.getStudents()) {
+			s.getCourses().remove(this);
+		}
+		// Remove the object from the DB
+		em.remove(this);
+	}
+	
 	/**
 	 * Removes references that are kept in the join table. This is required before
 	 * being able to remove the object
