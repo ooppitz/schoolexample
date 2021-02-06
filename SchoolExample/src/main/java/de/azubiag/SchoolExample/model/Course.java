@@ -133,7 +133,7 @@ public class Course extends Model {
 
 		String teacherName = (this.getTeacher() != null) ? this.getTeacher().getName() : "";
 
-		result += this.getName() + " [ " + teacherName + " ] (";
+		result += this.getName() + " [ " + teacherName + " ] (  ";
 		Set<Student> students = this.getStudents();
 		for (Student s : students) {
 			result += s.getName() + ", ";
