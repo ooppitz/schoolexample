@@ -2,6 +2,8 @@ drop database school;
 
 create database school;
 
+use school;
+
 CREATE USER IF NOT EXISTS 'dbadmin'@'localhost' IDENTIFIED BY 'turtledove';
 
 GRANT ALL PRIVILEGES ON `dbetdigital` TO 'dbadmin'@'localhost';
@@ -56,7 +58,7 @@ insert into `student` (idstudent, firstname, lastname) values
 (21, "Peter", "Mali"),
 (22, "Michael", "Fuchs"),
 (23, "Andreas", "Maier"),
-(24, "Oswald", "Brandstetter");
+(24, "Oswald", "Brandstetter"),
 (25,"Bernhard","Brunner"),
 (26,"Erich","Semlak"),
 (27,"Martin","Häupl"),
@@ -64,7 +66,7 @@ insert into `student` (idstudent, firstname, lastname) values
 (29,"Christian","Krennhuber");
 
 
-insert into `course` (idcourse, name) values
+insert into `course` (idcourse, idteacher, name) values
 (120,20,"Mathematik"),
 (121,21,"Deutsch"),
 (122,22,"Englisch"),
