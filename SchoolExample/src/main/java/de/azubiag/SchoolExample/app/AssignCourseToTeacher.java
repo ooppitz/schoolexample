@@ -18,12 +18,12 @@ public class AssignCourseToTeacher {
 			et.begin();
 
 			// Find the student
-			String teacherQueryStr = "SELECT t FROM Teacher t WHERE t.lastname = 'Mandorfer'";
+			String teacherQueryStr = "SELECT t FROM Teacher t WHERE t.lastname = 'Froschauer'";
 			TypedQuery<Teacher> teacherQuery = em.createQuery(teacherQueryStr, Teacher.class);
 			Teacher teacher = teacherQuery.getSingleResult();
 			
 			// Find the course
-			String courseQueryStr = "SELECT c FROM Course c WHERE name = 'Chormusik'";
+			String courseQueryStr = "SELECT c FROM Course c WHERE name = 'Geschichte'";
 			TypedQuery<Course> courseQuery = em.createQuery(courseQueryStr, Course.class);
 			Course course = courseQuery.getSingleResult();
 			
