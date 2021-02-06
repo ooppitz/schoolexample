@@ -65,7 +65,7 @@ insert into `student` (idstudent, firstname, lastname) values
 (28,"Markus","Rosenkranz"),
 (29,"Christian","Krennhuber");
 
-
+/* Create courses and assign teachers */
 insert into `course` (idcourse, idteacher, name) values
 (120,20,"Mathematik"),
 (121,21,"Deutsch"),
