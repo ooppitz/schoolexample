@@ -68,9 +68,6 @@ public class RemoveCourse {
 
 		Course course = Course.find(courseName);
 
-		System.out.println();
-		System.out.println("*** Removing course " + courseName);
-
 		course.remove();
 		System.out.println();
 
