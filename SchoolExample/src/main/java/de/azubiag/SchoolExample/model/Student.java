@@ -68,7 +68,6 @@ public class Student extends Model {
 	}
 
 	
-	/** Removes the object from the DB and removes all dependencies */
 	@Override
 	public void prepareRemove() {
 		
@@ -81,7 +80,7 @@ public class Student extends Model {
 
 
 	/**
-	 * Remove a course from the list of attended courses
+	 * Remove a course from this student's list of attended courses
 	 * 
 	 * @param course to remove
 	 */
