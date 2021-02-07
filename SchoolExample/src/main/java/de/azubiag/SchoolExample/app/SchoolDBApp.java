@@ -1,10 +1,7 @@
 package de.azubiag.SchoolExample.app;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
-
 import de.azubiag.SchoolExample.model.Course;
 import de.azubiag.SchoolExample.model.Model;
 import de.azubiag.SchoolExample.model.Student;

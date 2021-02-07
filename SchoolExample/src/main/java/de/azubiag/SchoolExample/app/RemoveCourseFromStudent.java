@@ -1,8 +1,6 @@
 package de.azubiag.SchoolExample.app;
 
 import javax.persistence.EntityTransaction;
-import javax.persistence.TypedQuery;
-
 import de.azubiag.SchoolExample.model.Course;
 import de.azubiag.SchoolExample.model.Model;
 import de.azubiag.SchoolExample.model.Student;
