@@ -59,13 +59,6 @@ public class RemoveCourse {
 
 	private static void deleteCourse(String courseName) {
 
-		/*
-		 * String queryString = "SELECT c from Course c WHERE c.name='" + courseName +
-		 * "'"; TypedQuery<Course> query = em.createQuery(queryString, Course.class);
-		 * List<Course> courseList = query.getResultList(); Course course =
-		 * courseList.get(0); course.prepareToRemove(); em.remove(course);
-		 */
-
 		Course course = Course.find(courseName);
 
 		course.remove();
