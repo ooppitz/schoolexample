@@ -1,5 +1,7 @@
 package de.azubiag.SchoolExample.model;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -20,6 +22,8 @@ public abstract class Model {
 	 */
 	public static EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
 
+	
+	
 	/**
 	 * Remove the teacher object from the DB. Before doing so, remove all references
 	 * to the teacher object.
