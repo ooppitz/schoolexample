@@ -19,11 +19,14 @@ public class RemoveCourseFromStudent {
 			System.out.println("Course: " + course.getName());
 
 			// Find the student
-			Student student = Student.find(20); // Christian Radhuber
-			System.out.println("Student: " + student.getFirstname() + " " + student.getLastname());
+			Student student = Student.find(20); // Christian Radhuber			
+			System.out.println("Student: " + student);
 
+			
+			System.out.println("*** Removing course " + course + " from student " + student);
 			student.remove(course);
 
+			System.out.println("Student: " + student);
 
 		} catch (Exception e) {
 
