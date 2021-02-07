@@ -70,16 +70,14 @@ public class Student extends Model {
 
 	
 	/** Removes the object from the DB and removes all dependencies */
-	public void remove() {
+	@Override
+	public void prepareRemove() {
 		
 		// Remove any reference from courses
 		for(Course c : this.getCourses()) {
 			c.getStudents().remove(this);
 		}
 		this.courses = null;
-		
-		// Remove the object from the DB
-		em.remove(this);
 	}
 
 

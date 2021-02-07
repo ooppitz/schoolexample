@@ -97,19 +97,15 @@ public class Teacher extends Model {
 		course.setTeacher(this);
 	}
 
-	/**
-	 * Remove the teacher object from the DB. Before doing so, remove all references
-	 * to the teacher object.
-	 * 
-	 */
-	public void remove() {
+
+	@Override
+	public void prepareRemove() {
 		Set<Course> courses = this.getCourses();
 		for (Course c : courses) {
 			c.setTeacher(null);
 		}
-		Model.em.remove(this);
 	}
-
+	
 	/**
 	 * Return description of the teacher object as String
 	 */

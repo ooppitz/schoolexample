@@ -102,8 +102,9 @@ public class Course extends Model {
 		this.students.remove(student);
 	}
 
-	/** Removes the object from the DB and removes all dependencies */
-	public void remove() {
+	
+	@Override
+	public void prepareRemove() {
 
 		// Remove any reference from teacher
 		if (this.getTeacher() != null) {
@@ -114,33 +115,12 @@ public class Course extends Model {
 		for (Student s : this.getStudents()) {
 			s.getCourses().remove(this);
 		}
-		// Remove the object from the DB
-		em.remove(this);
-	}
-
-	/**
-	 * Removes references that are kept in the join table. This is required before
-	 * being able to remove the object
-	 */
-	public void prepareToRemove() {
-
-		// From the still attending students remove the reference to the soon invalid
-		// course
-
-		System.out.println("Removing all Students from course " + this.getName() + ":");
-
-		Set<Student> studentList = this.getStudents();
-		for (Student s : studentList) {
-			System.out.println("Removing " + s.getFirstname() + " " + s.getLastname());
-			s.remove(this);
-		}
-
+		
 		// Remove the references to attending students
 		this.students = null;
-
+		
 	}
 
-	/** Overrides the standard toString() method */
 	@Override
 	public String toString() {
 
@@ -214,4 +194,7 @@ public class Course extends Model {
 	public void setStudents(Set<Student> students) {
 		this.students = students;
 	}
+
+
+
 }

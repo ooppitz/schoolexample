@@ -20,4 +20,25 @@ public abstract class Model {
 	 */
 	public static EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
 
+	/**
+	 * Remove the teacher object from the DB. Before doing so, remove all references
+	 * to the teacher object.
+	 * 
+	 */
+	public void remove() {
+
+		prepareRemove();
+
+		// Remove the object from the DB
+		em.remove(this);
+	}
+
+	/**
+	 * Removes references to other objects before the DB objects can be removed
+	 * 
+	 * @implNote Required for tables connected with join tables. If not required,
+	 *           implement an empty method
+	 */
+	public abstract void prepareRemove();
+
 }
