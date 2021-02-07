@@ -71,8 +71,7 @@ public class RemoveCourse {
 		System.out.println();
 		System.out.println("*** Removing course " + courseName);
 
-		course.prepareToRemove();
-		Model.em.remove(course);
+		course.remove();
 		System.out.println();
 
 	}
